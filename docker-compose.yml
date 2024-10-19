@@ -1,0 +1,7 @@
+services:
+  go-server:
+    build: ./src
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./src/model/db.json:/root/model/db.json:delegated
