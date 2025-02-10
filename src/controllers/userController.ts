@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import * as userService from "../services/userService";
+import { validateEmail, validatePassword } from "../utils/form-utils";
 
 export const registerUser = async (req: Request, res: Response) => {
   try {
@@ -12,13 +13,24 @@ export const registerUser = async (req: Request, res: Response) => {
         .json({ message: "Email and password are required." });
     }
 
-    // Check if user already exists
-    const existingUser = await userService.authenticateUser(email, password);
-    if (existingUser) {
+    const isEmailValid = validateEmail(email);
+
+    if (!isEmailValid) {
+      return res.status(400).json({ message: "Invalid email address." });
+    }
+
+    const isExistingUser = await userService.authenticateUser(email, password);
+
+    if (isExistingUser) {
       return res.status(409).json({ message: "User already exists." });
     }
 
-    // Create user
+    const passwordValidationMsg = validatePassword(password);
+
+    if (passwordValidationMsg.message !== null) {
+      return res.status(400).json({ message: passwordValidationMsg.message });
+    }
+
     const user = await userService.createUser(email, password);
 
     // In real-world scenario, you might create a JWT token here
