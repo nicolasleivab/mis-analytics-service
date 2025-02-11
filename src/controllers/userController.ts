@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import * as userService from "../services/userService";
 import { validateEmail, validatePassword } from "../utils/form-utils";
+import { generateAccessToken, generateRefreshToken } from "../utils/jwt";
 
 export const registerUser = async (req: Request, res: Response) => {
   try {
@@ -61,11 +62,27 @@ export const loginUser = async (req: Request, res: Response) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    // In a real-world scenario, you'd generate & return a JWT token.
-    // For now, we return a success message and user info (minus password).
+    const accessToken = generateAccessToken(user._id);
+    const refreshToken = generateRefreshToken(user._id);
+
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 15 * 60 * 1000, // 15 minutes in milliseconds
+    });
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+
     return res.status(200).json({
       message: "Login successful",
       user: { id: user._id, email: user.email },
+      accessToken,
     });
   } catch (error) {
     console.error("Login error:", error);
