@@ -46,3 +46,11 @@ export const authenticateUser = async (
 
   return user;
 };
+
+/**
+ * Find a user by ID.
+ * @param userId
+ */
+export const findUserById = async (userId: string): Promise<IUser | null> => {
+  return User.findById(userId);
+};
