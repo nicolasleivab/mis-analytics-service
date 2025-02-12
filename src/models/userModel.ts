@@ -1,12 +1,19 @@
+// models/userModel.ts
 import mongoose, { Document, Schema } from "mongoose";
+
+export interface IProjectRef {
+  id: mongoose.Types.ObjectId; // the actual Project _id
+  name: string;
+}
 
 export interface IUser extends Document {
   email: string;
   password: string;
   createdAt: Date;
+  projects: IProjectRef[];
 }
 
-const userSchema: Schema = new Schema(
+const userSchema: Schema<IUser> = new Schema(
   {
     email: {
       type: String,
@@ -19,10 +26,16 @@ const userSchema: Schema = new Schema(
       type: String,
       required: true,
     },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
+    projects: [
+      {
+        id: {
+          type: Schema.Types.ObjectId,
+          ref: "Project",
+          required: true,
+        },
+        name: { type: String, required: true },
+      },
+    ],
   },
   {
     timestamps: true,

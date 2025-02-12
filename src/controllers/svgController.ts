@@ -21,3 +21,5 @@ export const getSvg = async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Server Error" });
   }
 };
+
+export const postSvg = async (req: Request, res: Response) => {
