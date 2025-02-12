@@ -1,15 +1,21 @@
 import { Router } from "express";
 import { registerUser, loginUser } from "../controllers/userController";
 import { requireAuth } from "../middleware/auth";
-import { getSvg } from "../controllers/svgController";
+import {
+  createNewProject,
+  deleteSingleProject,
+  getSingleProject,
+} from "../controllers/projectController";
 
 const router = Router();
 
-// user
+// Users
 router.post("/users/register", registerUser);
 router.post("/users/login", loginUser);
 
-// svg
-router.get("/svg/:id", requireAuth, getSvg);
+// Projects
+router.post("/projects", requireAuth, createNewProject);
+router.get("/projects/:projectId", requireAuth, getSingleProject);
+router.delete("/projects/:projectId", requireAuth, deleteSingleProject);
 
 export default router;

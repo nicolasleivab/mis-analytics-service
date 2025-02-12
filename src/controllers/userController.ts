@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import * as userService from "../services/userService";
 import { validateEmail, validatePassword } from "../utils/form-utils";
 import { generateAccessToken, generateRefreshToken } from "../utils/jwt";
+import { User } from "../models/userModel";
 
 export const registerUser = async (req: Request, res: Response) => {
   try {
@@ -79,9 +80,15 @@ export const loginUser = async (req: Request, res: Response) => {
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
+    const userWithProjects = await User.findById(user._id).lean();
+
     return res.status(200).json({
       message: "Login successful",
-      user: { id: user._id, email: user.email },
+      user: {
+        id: user._id,
+        email: user.email,
+        projects: userWithProjects?.projects || [],
+      },
       accessToken,
     });
   } catch (error) {
