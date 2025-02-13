@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, Response, Request } from "express";
 import {
   registerUser,
   loginUser,
@@ -14,6 +14,10 @@ import {
 } from "../controllers/projectController";
 
 const router = Router();
+
+router.get("/csrf-token", (req: Request, res: Response) => {
+  return res.json({ csrfToken: req.csrfToken() });
+});
 
 // Users
 router.post("/users/register", registerUser);
