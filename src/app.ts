@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import routes from "./routes/routes";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 // import csrf from "csurf";
 
 dotenv.config();
@@ -22,6 +23,21 @@ app.use(cookieParser());
 //   });
 
 //   app.use(csrfProtection);
+
+const allowedOrigins = [
+  "http://localhost:3000", // Dev frontend
+];
+
+// const allowedOrigins = process.env.NODE_ENV === "production"
+//    ? ["https://www.frontend.com"]
+//    : ["http://localhost:3000"];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true, // allow cookies to be sent
+  })
+);
 
 // Middleware
 app.use(express.json());
