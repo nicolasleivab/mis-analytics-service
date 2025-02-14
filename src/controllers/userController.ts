@@ -22,7 +22,7 @@ export const registerUser = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "Invalid email address." });
     }
 
-    const isExistingUser = await userService.authenticateUser(email, password);
+    const isExistingUser = await userService.isExistingUser(email);
 
     if (isExistingUser) {
       return res.status(409).json({ message: "User already exists." });

@@ -48,6 +48,15 @@ export const authenticateUser = async (
 };
 
 /**
+ * Does email exist in the database?
+ * @param email
+ */
+export const isExistingUser = async (email: string): Promise<boolean> => {
+  const user = await User.findOne({ email });
+  return !!user;
+};
+
+/**
  * Find a user by ID.
  * @param userId
  */
