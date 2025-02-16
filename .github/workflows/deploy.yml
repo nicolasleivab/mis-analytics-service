@@ -45,6 +45,20 @@ jobs:
             cd ~/mis-analytics-service
             npm install --production
 
+      - name: Create .env file on Droplet
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DROPLET_IP }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            cat <<EOF > ~/mis-analytics-service/.env
+            PORT=3000
+            MONGODB_URI=${{ secrets.MONGODB_URI }}
+            JWT_SECRET=${{ secrets.JWT_SECRET }}
+            EOF
+
       - name: Restart Node Service on Droplet
         uses: appleboy/ssh-action@master
         with:
@@ -53,5 +67,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            cd ~/mis-analytics-service/dist
-            pm2 restart mis-analytics-service || pm2 start server.js --name mis-analytics-service
+            cd ~/mis-analytics-service
+            pm2 restart mis-analytics-service || pm2 start dist/server.js --name mis-analytics-service
