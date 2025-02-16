@@ -1,0 +1,22 @@
+name: mis-analytics-service
+services:
+  - name: web
+    image:
+      registry: ghcr.io
+      repository: ${{ github.repository }}
+      tag: latest
+    run_command: "npm start"
+    http_port: 4000
+    envs:
+      - key: PORT
+        value: "4000"
+      - key: MONGODB_URI
+        value: "${MONGODB_URI}"
+      - key: JWT_SECRET
+        value: "${JWT_SECRET}"
+      - key: ALLOWED_ORIGINS
+        value: "${ALLOWED_ORIGINS}"
+    routes:
+      - path: /
+        preserve_path: true
+        type: default

@@ -36,3 +36,4 @@ jobs:
           IMAGE_DIGEST: ${{ steps.build.outputs.digest }}
         with:
           token: ${{ secrets.DIGITALOCEAN_API_TOKEN }}
+          app_spec_location: .do/app.yaml
