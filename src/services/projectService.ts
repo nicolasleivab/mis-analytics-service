@@ -29,8 +29,8 @@ export async function createProjectForUser(
       projects: {
         id: newProject._id,
         name: newProject.name,
-        svgJson: newProject.svgJson,
         createdAt: newProject.createdAt,
+        updatedAt: newProject.updatedAt,
       },
     },
   });

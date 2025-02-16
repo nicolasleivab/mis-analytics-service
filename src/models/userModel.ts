@@ -4,6 +4,8 @@ import mongoose, { Document, Schema } from "mongoose";
 export interface IProjectRef {
   id: mongoose.Types.ObjectId; // the actual Project _id
   name: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface IUser extends Document {
@@ -34,6 +36,8 @@ const userSchema: Schema<IUser> = new Schema(
           required: true,
         },
         name: { type: String, required: true },
+        createdAt: { type: Date },
+        updatedAt: { type: Date },
       },
     ],
   },
