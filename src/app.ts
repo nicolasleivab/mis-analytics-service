@@ -12,17 +12,6 @@ dotenv.config();
 const app = express();
 app.use(cookieParser());
 
-// Configure csrf middleware.
-const csrfProtection = csrf({
-  cookie: {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-  },
-});
-
-app.use(csrfProtection);
-
 // Get allowed origins from env variable, or use default for dev
 const allowedOrigins = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(",")
@@ -34,6 +23,18 @@ app.use(
     credentials: true, // allow cookies to be sent
   })
 );
+
+// Configure csrf middleware.
+const csrfProtection = csrf({
+  cookie: {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    domain: "mis-analytics-service.duckdns.org",
+  },
+});
+
+app.use(csrfProtection);
 
 // Middleware
 app.use(express.json());

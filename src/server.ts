@@ -6,10 +6,10 @@ const DEFAULT_PORT = 4000;
 
 dotenv.config();
 
-const PORT = process.env.PORT || DEFAULT_PORT;
+const PORT = Number(process.env.PORT) || DEFAULT_PORT;
 
 connectDB().then(() => {
-  app.listen(PORT, () => {
+  app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server listening on port ${PORT}`);
   });
 });
