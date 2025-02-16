@@ -2,11 +2,17 @@
 
 Service that handles authentication and storage of config files for MIS-Analytics.
 
-# How to run this service locally:
+## How to run this service locally:
 
-## Using node
+### Using node
 
-First create an .env file with the neede variables to connect to your mongoDB instance and JWT secret.
+First setup nvm for using the node versio needed for this project.
+
+```
+nvm install && nvm use
+```
+
+Create an .env file with the neede variables to connect to your mongoDB instance and JWT secret.
 
 ```
 MONGODB_URI=mongodburishowninconnectsettings
@@ -14,7 +20,7 @@ JWT_SECRET='SUPERSECRET'
 PORT=4000
 ```
 
-## Or just use docker compose
+### Or just use docker compose
 
 Replace the variables in docker-compose.yml file and:
 
