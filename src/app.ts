@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import csrf from "csurf";
 
-const DEFAULT_LOCAL_FE_URL = "http://localhost:4000";
+const DEFAULT_FE_URL = "http://localhost:4000";
 
 dotenv.config();
 
@@ -15,7 +15,7 @@ app.use(cookieParser());
 // Get allowed origins from env variable, or use default for dev
 const allowedOrigins = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(",")
-  : DEFAULT_LOCAL_FE_URL;
+  : DEFAULT_FE_URL;
 
 app.use(
   cors({
