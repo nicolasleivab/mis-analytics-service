@@ -92,7 +92,9 @@ export const deleteSingleProject = async (req: Request, res: Response) => {
         .json({ message: "Project not found or not owned by user" });
     }
 
-    return res.status(200).json({ message: "Project deleted successfully" });
+    return res
+      .status(200)
+      .json({ message: "Project deleted successfully", id: projectId });
   } catch (error) {
     console.error("Delete Project Error:", error);
     return res.status(500).json({ message: "Server Error" });
