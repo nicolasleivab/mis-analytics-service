@@ -5,6 +5,7 @@ services:
       registry: ghcr.io
       repository: ${{ github.repository }}
       tag: latest
+      registry_type: container_registry
     run_command: "npm start"
     http_port: 4000
     envs:
