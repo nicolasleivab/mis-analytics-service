@@ -34,13 +34,13 @@ jobs:
           source: "dist/"
           target: "~/mis-analytics-service"
 
-      # - name: Restart Node Service on Droplet
-      #   uses: appleboy/ssh-action@master
-      #   with:
-      #     host: ${{ secrets.DROPLET_IP }}
-      #     username: ${{ secrets.DROPLET_USER }}
-      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
-      #     port: 22
-      #     script: |
-      #       cd ~/mis-analytics-service
-      #       pm2 restart mis-analytics-service || pm2 start index.js --name mis-analytics-service
+      - name: Restart Node Service on Droplet
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DROPLET_IP }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd ~/mis-analytics-service
+            pm2 restart mis-analytics-service || pm2 start index.js --name mis-analytics-service

@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import csrf from "csurf";
 
-const DEFAULT_FE_URL = "http://localhost:4000";
+const DEFAULT_FE_URL = "https://mis-analytics-service.duckdns.org";
 
 dotenv.config();
 
