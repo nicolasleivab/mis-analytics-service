@@ -5,6 +5,8 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import csrf from "csurf";
 
+const DEFAULT_LOCAL_FE_URL = "http://localhost:3000";
+
 dotenv.config();
 
 const app = express();
@@ -21,13 +23,10 @@ const csrfProtection = csrf({
 
 app.use(csrfProtection);
 
-const allowedOrigins = [
-  "http://localhost:3000", // Dev frontend
-];
-
-// const allowedOrigins = process.env.NODE_ENV === "production"
-//    ? ["https://www.frontend.com"]
-//    : ["http://localhost:3000"];
+// Get allowed origins from env variable, or use default for dev
+const allowedOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(",")
+  : DEFAULT_LOCAL_FE_URL;
 
 app.use(
   cors({

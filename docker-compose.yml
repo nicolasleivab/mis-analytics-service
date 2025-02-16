@@ -1,7 +1,10 @@
 services:
-  go-server:
-    build: ./src
+  app:
+    build: .
     ports:
-      - "8080:8080"
-    volumes:
-      - ./src/model/db.json:/root/model/db.json:delegated
+      - "${PORT}:4000"
+    environment:
+      - PORT=4000
+      - MONGODB_URI=mongodburi
+      - JWT_SECRET='SUPERSECRET'
+      - ALLOWED_ORIGINS=http://localhost:3000,https://example.com
