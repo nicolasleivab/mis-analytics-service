@@ -2,7 +2,7 @@ import { connectDB } from "./config/db";
 import app from "./app";
 import dotenv from "dotenv";
 
-const DEFAULT_PORT = 4000;
+const DEFAULT_PORT = 3000;
 
 dotenv.config();
 

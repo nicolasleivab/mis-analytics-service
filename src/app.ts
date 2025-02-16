@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import csrf from "csurf";
 
-const DEFAULT_LOCAL_FE_URL = "http://localhost:3000";
+const DEFAULT_LOCAL_FE_URL = "http://localhost:4000";
 
 dotenv.config();
 
@@ -30,7 +30,6 @@ const csrfProtection = csrf({
     httpOnly: true,
     secure: true,
     sameSite: "none",
-    domain: "mis-analytics-service.duckdns.org",
   },
 });
 

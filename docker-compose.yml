@@ -2,9 +2,9 @@ services:
   app:
     build: .
     ports:
-      - "${PORT}:4000"
+      - "${PORT}:3000"
     environment:
-      - PORT=4000
+      - PORT=3000
       - MONGODB_URI=mongodburi
       - JWT_SECRET='SUPERSECRET'
       - ALLOWED_ORIGINS=http://localhost:3000,https://example.com

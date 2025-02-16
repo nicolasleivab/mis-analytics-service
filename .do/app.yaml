@@ -7,10 +7,10 @@ services:
       tag: latest
       registry_type: DOCR
     run_command: "npm start"
-    http_port: 4000
+    http_port: 3000
     envs:
       - key: PORT
-        value: "4000"
+        value: "3000"
       - key: MONGODB_URI
         value: "${MONGODB_URI}"
       - key: JWT_SECRET

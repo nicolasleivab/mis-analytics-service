@@ -17,7 +17,7 @@ Create an .env file with the neede variables to connect to your mongoDB instance
 ```
 MONGODB_URI=mongodburishowninconnectsettings
 JWT_SECRET='SUPERSECRET'
-PORT=4000
+PORT=3000
 ```
 
 ### Or just use docker compose
@@ -28,4 +28,4 @@ Replace the variables in docker-compose.yml file and:
 docker compose up -d
 ```
 
-You can access the service at the port defined in docker-compose.yml (default: 4000).
+You can access the service at the port defined in docker-compose.yml (default: 3000).
