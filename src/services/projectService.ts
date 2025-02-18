@@ -7,6 +7,7 @@ import { User } from "../models/userModel";
 export async function createProjectForUser(
   userId: string,
   name: string,
+  idField: string,
   svgJson: any,
   clipPathsJson: any,
   data: any,
@@ -16,6 +17,7 @@ export async function createProjectForUser(
   const newProject = await Project.create({
     user: userId,
     name,
+    idField,
     svgJson,
     clipPathsJson,
     data,

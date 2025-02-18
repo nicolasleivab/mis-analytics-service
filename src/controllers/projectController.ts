@@ -18,6 +18,7 @@ export const createNewProject = async (req: Request, res: Response) => {
 
     const {
       name,
+      idField,
       svgJson,
       clipPathsJson,
       data,
@@ -32,6 +33,7 @@ export const createNewProject = async (req: Request, res: Response) => {
     const newProj = await createProjectForUser(
       userId,
       name,
+      idField,
       svgJson,
       clipPathsJson,
       data,

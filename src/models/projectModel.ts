@@ -4,6 +4,7 @@ import mongoose, { Document, Schema } from "mongoose";
 export interface IProject extends Document {
   user: mongoose.Types.ObjectId; // Which user owns this project
   name: string;
+  idField: string;
   svgJson: any;
   clipPathsJson: any;
   data: any;
@@ -22,6 +23,7 @@ const ProjectSchema: Schema<IProject> = new Schema(
       index: true,
     },
     name: { type: String, required: true },
+    idField: { type: String, required: true },
     svgJson: { type: Schema.Types.Mixed, default: {} },
     clipPathsJson: { type: Schema.Types.Mixed, default: {} },
     data: { type: Schema.Types.Mixed, default: {} },
