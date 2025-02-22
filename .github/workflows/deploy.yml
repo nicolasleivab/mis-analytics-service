@@ -24,6 +24,20 @@ jobs:
       - name: Build Service
         run: npm run build
 
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Build & Push Docker Image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          dockerfile: ./Dockerfile
+          tags: nicolasleivab/mis-analytics-service:latest
+          push: true
+
       - name: Deploy to Droplet via SCP
         uses: appleboy/scp-action@master
         with:
