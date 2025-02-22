@@ -24,12 +24,14 @@ app.use(
   })
 );
 
+const isProduction = process.env.NODE_ENV === "production";
+
 // Configure csrf middleware.
 const csrfProtection = csrf({
   cookie: {
     httpOnly: true,
-    secure: true,
-    sameSite: "none",
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
   },
 });
 
