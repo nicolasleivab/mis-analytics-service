@@ -5,6 +5,10 @@ import jwt from "jsonwebtoken";
 import { generateAccessToken, generateRefreshToken } from "../utils/jwt";
 import { User } from "../models/userModel";
 
+/**
+ * POST /users
+ * Registers a new user
+ */
 export const registerUser = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
@@ -47,6 +51,10 @@ export const registerUser = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * POST /users
+ * Logins in a user
+ */
 export const loginUser = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
@@ -98,6 +106,10 @@ export const loginUser = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * GET /users
+ * Retrieves the current user
+ */
 export const getCurrentUser = async (req: Request, res: Response) => {
   try {
     const userId = (req as any).user?.sub;
@@ -127,6 +139,10 @@ export const getCurrentUser = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * POST /users
+ * Refreshes the access token
+ */
 export const refreshToken = async (req: Request, res: Response) => {
   try {
     const { refreshToken } = req.cookies;
@@ -179,6 +195,10 @@ export const refreshToken = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * POST /users
+ * Logs out the user
+ */
 export const logoutUser = (req: Request, res: Response) => {
   // Clear the cookies:
   res.clearCookie("refreshToken", {

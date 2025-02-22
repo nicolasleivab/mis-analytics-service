@@ -1,6 +1,6 @@
 # MIS-Analytics-service
 
-Service that handles authentication and storage of config files for MIS-Analytics.
+Service that handles authentication and storage of config files for [mis-analytics app](https://github.com/nicolasleivab/mis-analytics).
 
 ## How to run this service locally:
 
@@ -18,6 +18,7 @@ Create an .env file with the neede variables to connect to your mongoDB instance
 MONGODB_URI=mongodburishowninconnectsettings
 JWT_SECRET='SUPERSECRET'
 PORT=3000
+ALLOWED_ORIGINS=http://localhost:4000
 ```
 
 ### Or just use docker compose
