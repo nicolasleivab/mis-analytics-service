@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import {
   createProjectForUser,
+  updateProjectForUser,
   getProject,
   deleteProject,
 } from "../services/projectService";
@@ -47,6 +48,55 @@ export const createNewProject = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error("Create Project Error:", error);
+    return res.status(500).json({ message: "Server Error" });
+  }
+};
+
+/**
+ * POST /projects/:projectId
+ * Updates a project by ID.
+ */
+export const updateProject = async (req: Request, res: Response) => {
+  try {
+    const userId = (req as any).user?.sub;
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const {
+      name,
+      idField,
+      svgJson,
+      clipPathsJson,
+      data,
+      variableFields,
+      svgThresholds,
+    } = req.body;
+
+    const { projectId } = req.params;
+
+    const updated = await updateProjectForUser(
+      projectId,
+      userId,
+      name,
+      idField,
+      svgJson,
+      clipPathsJson,
+      data,
+      variableFields,
+      svgThresholds
+    );
+
+    if (!updated) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+
+    return res.status(200).json({
+      message: "Project updated successfully",
+      project: updated,
+    });
+  } catch (error) {
+    console.error("Update Project Error:", error);
     return res.status(500).json({ message: "Server Error" });
   }
 };

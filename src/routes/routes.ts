@@ -11,6 +11,7 @@ import {
   createNewProject,
   deleteSingleProject,
   getSingleProject,
+  updateProject,
 } from "../controllers/projectController";
 
 const router = Router();
@@ -28,6 +29,7 @@ router.post("/users/logout", logoutUser);
 
 // Projects
 router.post("/projects", requireAuth, createNewProject);
+router.post("/projects/:projectId", requireAuth, updateProject);
 router.get("/projects/:projectId", requireAuth, getSingleProject);
 router.delete("/projects/:projectId", requireAuth, deleteSingleProject);
 

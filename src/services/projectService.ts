@@ -41,6 +41,50 @@ export async function createProjectForUser(
 }
 
 /**
+ * Update a project by ID
+ */
+export async function updateProjectForUser(
+  projectId: string,
+  userId: string,
+  name: string,
+  idField: string,
+  svgJson: any,
+  clipPathsJson: any,
+  data: any,
+  variableFields: any,
+  svgThresholds: any
+) {
+  const updatedProject = await Project.findOneAndUpdate(
+    { _id: projectId, user: userId },
+    {
+      name,
+      idField,
+      svgJson,
+      clipPathsJson,
+      data,
+      variableFields,
+      svgThresholds,
+    },
+    { new: true }
+  );
+
+  if (!updatedProject) return null;
+
+  // Update the project name in the user's projects array
+  await User.updateOne(
+    { _id: userId, "projects.id": projectId },
+    {
+      $set: {
+        "projects.$.name": name,
+        "projects.$.updatedAt": updatedProject.updatedAt,
+      },
+    }
+  );
+
+  return updatedProject;
+}
+
+/**
  * Get one project by ID (ensure it belongs to user).
  */
 export async function getProject(projectId: string, userId: string) {
