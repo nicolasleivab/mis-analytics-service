@@ -82,4 +82,4 @@ jobs:
           port: 22
           script: |
             cd ~/mis-analytics-service
-            export NODE_ENV=production && ( pm2 restart mis-analytics-service || pm2 start dist/server.js --name mis-analytics-service )
+            export NODE_ENV=production && ( pm2 restart mis-analytics-service --update-env || pm2 start dist/server.js --name mis-analytics-service )
