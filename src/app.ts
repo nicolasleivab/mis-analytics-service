@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import csrf from "csurf";
 
-const DEFAULT_FE_URL = "https://mis-analytics.org";
+const DEFAULT_FE_URL = "https://www.mis-analytics.org";
 
 dotenv.config();
 
